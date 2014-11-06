@@ -38,6 +38,17 @@ module Refinery
 
         private
 
+          def image_slide_params
+            params.require(:image_slide).permit(
+              :id,
+              :title,
+              :image_id,
+              :caption,
+              :position,
+              :image_slideshow_id
+            )
+          end
+
         def image_slides_path
           refinery.image_slideshows_admin_image_slideshow_image_slides_path(@image_slideshow)
         end
