@@ -2,7 +2,7 @@ Refinery::Core::Engine.routes.append do
 
   # Admin routes
   namespace :image_slideshows, :path => '' do
-    namespace :admin, :path => 'refinery' do
+    namespace :admin, :path => Refinery::Core.backend_route do
       resources :image_slideshows do
         resources :image_slides, :except => :show do
           collection do
