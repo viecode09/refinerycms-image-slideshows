@@ -6,14 +6,15 @@ module Refinery
         crudify :'refinery/image_slideshows/image_slide', :sortable => true
 
         before_filter :find_image_slideshow
-        before_filter :find_image_slide, :except => [:index, :new]
-
-        def index
-          find_image_slides
-        end
+        before_filter :find_image_slides, only: :index
+        before_filter :find_image_slide, :except => [:index]
 
         def create
-          @image_slide.position = Refinery::ImageSlideshows::ImageSlide.maximum(:position) + 1
+          if Refinery::ImageSlideshows::ImageSlide.any?
+            @image_slide.position = Refinery::ImageSlideshows::ImageSlide.maximum(:position) + 1
+          else
+            @image_slide.position = 1
+          end
 
           if @image_slide.valid? && @image_slide.save
             redirect_to image_slides_path, :notice => 'Image slide was successfully created.'
@@ -55,7 +56,7 @@ module Refinery
 
         def find_image_slide
           @image_slide = Refinery::ImageSlideshows::ImageSlide.find(params[:id]) if params[:id]
-          @image_slide ||= Refinery::ImageSlideshows::ImageSlide.new(params[:image_slide]) if params[:image_slide]
+          @image_slide = Refinery::ImageSlideshows::ImageSlide.new(image_slide_params) if params[:image_slide]
         end
 
         def find_image_slideshow
@@ -65,7 +66,6 @@ module Refinery
         def find_image_slides
           @image_slides = @image_slideshow.image_slides.order(:position) if @image_slideshow.present?
         end
-
       end
     end
   end
