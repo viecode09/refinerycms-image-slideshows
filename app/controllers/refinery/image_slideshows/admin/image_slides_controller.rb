@@ -17,15 +17,15 @@ module Refinery
           end
 
           if @image_slide.valid? && @image_slide.save
-            redirect_to image_slides_path, :notice => 'Image slide was successfully created.'
+            redirect_to image_slides_path, :notice => t('created', :scope => 'refinery.image_slideshows.admin.image_slides')
           else
             render :action => :new
           end
         end
 
         def update
-          if @image_slide.update_attributes(params[:image_slide])
-            redirect_to image_slides_path, :notice => 'Image slide was successfully updated.'
+          if @image_slide.update_attributes(image_slide_params)
+            redirect_to image_slides_path, :notice => t('updated', :scope => 'refinery.image_slideshows.admin.image_slides')
           else
             render :action => :edit
           end
@@ -33,7 +33,7 @@ module Refinery
 
         def destroy
           if @image_slide.destroy
-            redirect_to image_slides_path, :notice => 'Image slide was successfully deleted.'
+            redirect_to image_slides_path, :notice => t('deleted', :scope => 'refinery.image_slideshows.admin.image_slides')
           end
         end
 
