@@ -1,42 +1,56 @@
-# Image Slideshows
+# Refinery CMS Image Slideshows
+
+Image Slideshows engine for [Refinery CMS](http://refinerycms.com) allows you to display multiples slideshows.
+
 
 ![Refinery Image Slideshows](https://dl.dropbox.com/u/80562357/Upload/gem_refinerycms_image_slideshows.png)
 
 ![Refinery Image Slideshows](https://dl.dropbox.com/u/80562357/Upload/gem_refinerycms_image_slideshows_2.png)
 
-## About
 
-__Image Slideshows allows you to create groups of images for use by a JavaScript image slider.__
-
-Suggested image slider: [Nivo Slider](http://nivo.dev7studios.com)
+### In summary you can:
+* Manage slideshows (title, height, width, js config)
+* Manage i18n slides in every slideshow (title, image, caption, link_url)
 
 ## Requirements
 
-[Refinery CMS](http://refinerycms.com) "core" engine version 2.0.0 or later.
+This version of `refinerycms-image_slideshows` supports Refinery 3.x and Rails 4.1.x.
+To use Rails 3.x / Refinery 2.0.x use the [refinerycms-image_slideshows "Refinery CMS 2-0 stable branch"](http://github.com/bisscomm/refinerycms-image_slideshows/tree/2-0-stable).
 
-### Gem Installation
+* [Refinery CMS](http://refinerycms.com) version 3.0.0 or above.
 
-Include the latest [gem](http://rubygems.org/gems/refinerycms-image_slideshows) into your Refinery CMS application's Gemfile:
+## Install
+
+Open up your ``Gemfile`` and add at the bottom this line:
 
 ```ruby
-gem "refinerycms-image_slideshows", '~> 1.0'
+gem 'refinerycms-image_slideshows', git: 'https://github.com/bisscomm/refinerycms-image_slideshows', branch: 'master'
 ```
 
-Then type the following at the command line inside your Refinery CMS application's root directory:
+Now, run ``bundle install``
 
-    bundle install
+Next, to install the products plugin run:
+
     rails generate refinery:image_slideshows
+
+Run database migrations:
+
     rake db:migrate
+
+Finally seed your database and you're done.
+
     rake db:seed
-    
-## How to display a slideshow with [Nivo Slider](http://nivo.dev7studios.com):
+
+## Usage
+
+Add this code in your HTML) :
 
 ```html+erb
   <body>
-    <% main_slideshow = Refinery::ImageSlideshows::ImageSlideshow.find_by_title('Demo') %>
+    <% main_slideshow = Refinery::ImageSlideshows::ImageSlideshow.find_by_title('Your Awesome Slideshow Title') %>
     <div id="wrapper">
-      <div class="slider-wrapper theme-default">
-        <div id="slider" class="nivoSlider">
+      <div class="slider-wrapper">
+        <div id="slider">
           <% main_slideshow.image_slides.each do |image_slide| %>
             <%= link_to image_slide.link_url do %>
               <%= image_tag image_slide.image.url, :alt => image_slide.title, :title => image_slide.caption %>
@@ -45,8 +59,7 @@ Then type the following at the command line inside your Refinery CMS application
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/jquery.nivo.slider.js"></script>
+
     <script type="text/javascript">
       $(window).load(function() {
           $('#slider').nivoSlider({
@@ -56,9 +69,28 @@ Then type the following at the command line inside your Refinery CMS application
     </script>
   </body>
 ```
-    
+
+## Developing & Contributing
+
+The version of Refinery to develop this engine against is defined in the gemspec. To override the version of refinery to develop against, edit the project Gemfile to point to a local path containing a clone of refinerycms.
+
+### Testing
+
+Generate the dummy application to test against
+
+    $ bundle exec rake refinery:testing:dummy_app
+
+Run the test suite with [Guard](https://github.com/guard/guard)
+
+    $ bundle exec guard start
+
+Or just with rake spec
+
+    $ bundle exec rake spec
 
 
-
-
-
+## More Information
+* Check out our [Website](http://refinerycms.com/)
+* Documentation is available in the [guides](http://refinerycms.com/guides)
+* Questions can be asked on our [Google Group](http://group.refinerycms.org)
+* Questions can also be asked in our IRC room, [#refinerycms on freenode](irc://irc.freenode.net/refinerycms)
