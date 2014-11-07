@@ -3,7 +3,9 @@ module Refinery
     module Admin
       class ImageSlidesController < ::Refinery::AdminController
 
-        crudify :'refinery/image_slideshows/image_slide', :sortable => true
+        crudify :'refinery/image_slideshows/image_slide',
+                :sortable => true,
+                :include => [:translations]
 
         before_filter :find_image_slideshow
         before_filter :find_image_slides, only: :index
@@ -45,6 +47,7 @@ module Refinery
               :title,
               :image_id,
               :caption,
+              :link_url,
               :position,
               :image_slideshow_id
             )
