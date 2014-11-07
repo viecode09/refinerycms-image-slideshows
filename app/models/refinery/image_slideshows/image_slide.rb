@@ -3,6 +3,8 @@ module Refinery
     class ImageSlide < Refinery::Core::BaseModel
       self.table_name = 'refinery_image_slides'
 
+      translates :title, :caption, :link_url
+
       acts_as_indexed :fields => [:title]
 
       validates :title, :presence => true

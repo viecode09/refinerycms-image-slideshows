@@ -3,6 +3,9 @@
               :object => @image_slide,
               :include_object_name => true %>
 
+  <%= render '/refinery/admin/locale_picker',
+              :current_locale => Globalize.locale %>
+
   <%= f.hidden_field :image_slideshow_id, :value => @image_slideshow.id  %>
 
   <div class='field'>
