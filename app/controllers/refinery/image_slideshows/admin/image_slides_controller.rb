@@ -56,7 +56,7 @@ module Refinery
 
         def find_image_slide
           @image_slide = Refinery::ImageSlideshows::ImageSlide.find(params[:id]) if params[:id]
-          @image_slide = Refinery::ImageSlideshows::ImageSlide.new(image_slide_params) if params[:image_slide]
+          @image_slide ||= Refinery::ImageSlideshows::ImageSlide.new(image_slide_params) if params[:image_slide]
         end
 
         def find_image_slideshow
