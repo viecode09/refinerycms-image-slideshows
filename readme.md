@@ -24,7 +24,7 @@ To use Rails 3.x / Refinery 2.0.x use the [refinerycms-image_slideshows "Refiner
 Open up your ``Gemfile`` and add at the bottom this line:
 
 ```ruby
-gem 'refinerycms-image_slideshows', git: 'https://github.com/bisscomm/refinerycms-image_slideshows', branch: 'master'
+gem 'refinerycms-image_slideshows', git: 'https://github.com/bisscomm/refinerycms-image-slideshows', branch: 'master'
 ```
 
 Now, run ``bundle install``
